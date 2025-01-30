@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { PokedexService } from '../pokedex.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,18 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
-
-  constructor() {}
-
+  listPokemones: any =[];
+  constructor(private pokeService : PokedexService) {}
+    ngOnInit(){
+      this.pokeService.getListPokemones().subscribe((data)=>{
+        this.listPokemones =data.results;
+        console.log(data.results);
+      })
+      
+    }
+    handleDetail(url :any){
+      
+      location.href="pokemon";
+      console.log(url);
+    }
 }
